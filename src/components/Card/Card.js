@@ -12,10 +12,10 @@ import messages from '../../messages';
 import { useFilters } from '../../context/filtersContext/FiltersContext';
 import UserContext from '../../context/userContext/UserContext';
 import { useModal } from '../../context/modalContext/ModalContext';
-import MentorshipRequest from '../../Me/Modals/MentorshipReqModals/MentorshipRequest';
+import MentorshipRequest from '../../Me/Modals/MentorshipRequestModals/MentorshipRequest';
 import { useDeviceType } from '../../utils/useDeviceType';
 
-function handleAnalytic(channelName) {
+function handleAnalytics(channelName) {
   report('Channel', 'click', channelName);
 }
 
@@ -34,7 +34,7 @@ const tagsList = (tags, handleTagClick) =>
   });
 
 const applyOnClick = () => {
-  handleAnalytic('apply');
+  handleAnalytics('apply');
   auth.login();
 };
 
@@ -199,7 +199,7 @@ const Card = ({ mentor, onFavMentor, isFav }) => {
 
   const Channels = ({ channels }) => {
     if (!channels.length) {
-      return <ApplyButton mentor={mentor} />
+      return <ApplyButton mentor={mentor} />;
     }
     const orderedChannels = orderBy(channels, ['type'], ['asc']);
     return orderedChannels.map(channel => {
@@ -210,7 +210,7 @@ const Card = ({ mentor, onFavMentor, isFav }) => {
             key={channel.type}
             email={url.substring('mailto:'.length)}
             linkText=""
-            onClick={() => handleAnalytic(`${channel.type}`)}
+            onClick={() => handleAnalytics(`${channel.type}`)}
           >
             <div className="icon">
               <i className={`fa fa-${icon} fa-lg`} />
@@ -226,7 +226,7 @@ const Card = ({ mentor, onFavMentor, isFav }) => {
             target="_blank"
             rel="noopener noreferrer"
             className="channel-label"
-            onClick={() => handleAnalytic(`${channel.type}`)}
+            onClick={() => handleAnalytics(`${channel.type}`)}
           >
             <div className="icon">
               <i className={`fa fa-${icon} fa-lg`} />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { Modal } from '../Modal';
 import FormField from '../../components/FormField';
@@ -27,6 +27,7 @@ const ExtendedFormField = styled(FormField)`
   justify-content: flex-start;
 
   & label {
+    margin-top: 32px;
     color: ${props =>
       props.invalid ? 'var(--form-text-invalid)' : 'var(--form-text-default)'};
   }
@@ -36,7 +37,7 @@ const ErrorMessage = styled.div`
   color: var(--form-text-invalid);
 `;
 
-const MentorshipRequest = ({ mentor, closeModal }) => {
+const MentorshipRequest = ({ mentor }) => {
   const [confirmed, setConfirmed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [mentorshipRequestDetails, setMentorshipRequestDetails] = useState(
@@ -144,8 +145,8 @@ const MentorshipRequest = ({ mentor, closeModal }) => {
 
   const onSubmit = async e => {
     e?.preventDefault();
-    setIsLoading(true);
     if (!validate()) return;
+    setIsLoading(true);
     const success = await applyForMentorship(mentor, mentorshipRequestDetails);
     setConfirmed(success);
     setIsLoading(false);
@@ -155,10 +156,10 @@ const MentorshipRequest = ({ mentor, closeModal }) => {
     <Modal
       title="Mentorship Request"
       onSave={confirmed ? null : onSubmit}
-      closeModal={closeModal}
       submitLabel="Send Request"
       isValid={errors?.isValid}
       isLoading={isLoading}
+      center
     >
       {confirmed ? (
         <Body>
